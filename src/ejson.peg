@@ -27,7 +27,7 @@ grammar ExtendedJSON
                             @array_close
                           %make_empty_array
 
-  value                  <- @__ (json_values / mongo_literals / mongo_types) @__
+  value                  <- (json_values / mongo_literals / mongo_types)
 
   json_values            <- object / array / number / string / boolean / null
   mongo_literals         <- min_key / max_key / undefined / regexp_string
@@ -48,14 +48,14 @@ grammar ExtendedJSON
 
   string                 <- double_quote_string / single_quote_string
 
-  double_quote_string    <- double_quote
+  double_quote_string    <- @double_quote
                               ("\\" . / [^"])*
-                            double_quote
+                            @double_quote
                           %make_string
 
-  single_quote_string    <- single_quote
+  single_quote_string    <- @single_quote
                               ("\\" . / [^'])*
-                            single_quote
+                            @single_quote
                           %make_string
 
   hex_string             <- hex_single_quote / hex_double_quote
@@ -64,10 +64,36 @@ grammar ExtendedJSON
   hex_single_quote       <- @single_quote
                               hex_value
                             @single_quote
+                          %make_string
 
   hex_double_quote       <- @double_quote
                               hex_value
                             @double_quote
+                          %make_string
+
+  integer_string         <- integer_string_single / integer_string_double
+
+  integer_string_single   <- @single_quote
+                               integer_number
+                             @single_quote
+                          %make_numeric_string
+
+  integer_string_double   <- @double_quote
+                               integer_number
+                             @double_quote
+                          %make_numeric_string
+
+  number_string          <- number_string_single / number_string_double
+
+  number_string_single   <- @single_quote
+                              number
+                            @single_quote
+                          %make_numeric_string
+
+  number_string_double   <- @double_quote
+                              number
+                            @double_quote
+                          %make_numeric_string
 
   regexp_string          <- @slash
                               ("\\" . / [^\/])*
@@ -78,18 +104,24 @@ grammar ExtendedJSON
   regexp_options         <- [gims]+
 
   base64_string          <- base64_single_quote / base64_dobule_quote
+
   base64_value           <- [a-zA-Z0-9+\/]+ ("=" / "==")?
 
   base64_single_quote    <- @single_quote
                               base64_value
                             @single_quote
+                          %make_string
 
   base64_dobule_quote    <- @double_quote
                               base64_value
                             @double_quote
+                          %make_string
 
   number                 <- "-"? integer fraction? exponent?
                           %make_number
+
+  number_as_string       <- "-"? integer fraction? exponent?
+                          %make_number_as_string
 
   integer                <- ("0" / [1-9] [0-9]*)
   fraction               <- ("." [0-9]+)
@@ -97,16 +129,6 @@ grammar ExtendedJSON
 
   integer_number         <- integer @""
                           %make_number
-
-  number_string          <- number_string_single / number_string_double
-
-  number_string_single   <- @single_quote
-                              number
-                            @single_quote
-
-  number_string_double   <- @double_quote
-                              number
-                            @double_quote
 
   # Mongo Extensions
 
@@ -125,7 +147,7 @@ grammar ExtendedJSON
                             @type_close
                           %make_object_id
 
-  bin_data_type          <- value:(string / integer_number) _:""
+  bin_data_type          <- string / integer_number
   bin_data               <- @"BinData"
                             @type_open
                               bin_data_type
@@ -134,16 +156,15 @@ grammar ExtendedJSON
                             @type_close
                           %make_bin_data
 
-  timestamp_value        <- value:integer_number _:""
   timestamp              <- @"Timestamp"
                             @type_open
-                              timestamp_value
+                              integer_number
                             @delimiter
-                              timestamp_value
+                              integer_number
                             @type_close
                           %make_timestamp
 
-  number_long_value      <- value:(number / number_string) _:""
+  number_long_value      <- integer_number / integer_string
   number_long            <- @"NumberLong"
                             @type_open
                               number_long_value
@@ -151,7 +172,7 @@ grammar ExtendedJSON
                           %make_number_long
 
 
-  number_decimal_value   <- value:(number / number_string) _:""
+  number_decimal_value   <- number_as_string / number_string
   number_decimal         <- @"NumberDecimal"
                             @type_open
                               number_decimal_value
@@ -159,7 +180,7 @@ grammar ExtendedJSON
                           %make_number_decimal
 
   date_type              <- ("new" space+ "Date" / "ISODate")
-  date_value             <- value:(integer_number / string) _:""
+  date_value             <- integer_number / string
   date                   <- @date_type
                             @type_open
                               date_value

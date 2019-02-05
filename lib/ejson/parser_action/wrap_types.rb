@@ -6,9 +6,6 @@ module Wrap
   ObjectId = Struct.new("ObjectId", :hex)
   BinData = Struct.new("BinData", :type, :data)
   Timestamp = Struct.new("Timestamp", :timestamp, :fraction)
-  NumberDecimal = Struct.new("NumberDecimal", :value)
-  Date = Struct.new("Date", :date)
-  RegExp = Struct.new("RegExp", :expression, :options)
 
   DBRef = Struct.new("DBRef", :name, :id)
 end

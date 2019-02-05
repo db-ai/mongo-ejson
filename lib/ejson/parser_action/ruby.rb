@@ -1,4 +1,5 @@
 require 'ejson/parser_action/abstract'
+require 'date'
 
 module ParserAction
   class Ruby < ParserAction::Abstract
@@ -28,7 +29,18 @@ module ParserAction
     end
 
     def make_string(input, start, _end, elements)
-      %Q|"#{elements[1].text}"|.undump
+      %Q|"#{elements.first.text}"|.undump
+    end
+
+    def make_numeric_string(input, start, _end, elements)
+      elements.first
+    end
+
+    def make_number_as_string(input, start, _end, elements)
+      string = input[start..._end]
+      string.downcase!
+
+      string
     end
 
     def make_array(input, start, _end, elements)
@@ -58,6 +70,29 @@ module ParserAction
 
     def make_false(input, start, _end)
       false
+    end
+
+    # Makes ruby date from mongo Data type
+    def make_date(input, start, _end, elements)
+      value = elements.first
+
+      case value
+      when String
+        DateTime.parse(value)
+      when Numeric
+        Time.at(value)
+      else
+        raise ArgumentError,
+              "Internal parser error. Unknown date atom type #{value.class}"
+      end
+    end
+
+    def make_regexp(input, start, _end, elements)
+      Regexp.new(elements.first.text, elements.last.text)
+    end
+
+    def make_number_long(input, start, _end, elements)
+      value = elements.first
     end
 
     private

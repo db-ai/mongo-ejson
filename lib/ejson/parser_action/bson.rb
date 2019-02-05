@@ -3,7 +3,8 @@ require 'ejson/parser_action/ruby'
 module ParserAction
   class BSON < ParserAction::Ruby
     def make_object_id(input, start, _end, elements)
-      value = elements.first.hex_value.text
+      value = elements.first
+
       ::BSON::ObjectId.from_string(value)
     end
 
@@ -18,8 +19,8 @@ module ParserAction
     }
 
     def make_bin_data(input, start, _end, elements)
-      data = elements.last.text
-      type = elements.first.value
+      data = elements.last
+      type = elements.first
 
       if type.is_a? Numeric
         type = NUMBER_TO_TYPE[type]
@@ -29,47 +30,13 @@ module ParserAction
     end
 
     def make_timestamp(input, start, _end, elements)
-      ::BSON::Timestamp.new(elements.first.value, elements.last.value)
-    end
-
-    def make_number_long(input, start, _end, elements)
-      value = elements.first.value
-
-      if value.respond_to? :elements
-        value.elements.first
-      else
-        value
-      end
+      ::BSON::Timestamp.new(elements.first, elements.last)
     end
 
     def make_number_decimal(input, start, _end, elements)
-      value = elements.first.value
+      value = elements.first
 
-      if value.respond_to? :elements
-        number = value.elements.first
-      else
-        number = value
-      end
-
-      ::BSON::Decimal128.new(number.to_s)
-    end
-
-    def make_date(input, start, _end, elements)
-      value = elements.first.value
-
-      case value
-      when String
-        DateTime.parse(value)
-      when Numeric
-        Time.at(value)
-      else
-        raise ArgumentError,
-              "Internal parser error. Unknown date atom type #{value.class}"
-      end
-    end
-
-    def make_regexp(input, start, _end, elements)
-      Regexp.new(elements.first.text, elements.last.text)
+      ::BSON::Decimal128.new(value.to_s)
     end
 
     def make_db_ref(input, start, _end, elements)

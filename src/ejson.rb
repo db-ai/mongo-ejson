@@ -64,51 +64,60 @@ module ExtendedJSON
   end
 
   class TreeNode6 < TreeNode
-    attr_reader :double_quote
+    attr_reader :hex_value
 
     def initialize(text, offset, elements)
       super
-      @double_quote = elements[2]
+      @hex_value = elements[0]
     end
   end
 
   class TreeNode7 < TreeNode
-    attr_reader :single_quote
+    attr_reader :hex_value
 
     def initialize(text, offset, elements)
       super
-      @single_quote = elements[2]
+      @hex_value = elements[0]
     end
   end
 
   class TreeNode8 < TreeNode
-    attr_reader :hex_value
+    attr_reader :integer_number
 
     def initialize(text, offset, elements)
       super
-      @hex_value = elements[0]
+      @integer_number = elements[0]
     end
   end
 
   class TreeNode9 < TreeNode
-    attr_reader :hex_value
+    attr_reader :integer_number
 
     def initialize(text, offset, elements)
       super
-      @hex_value = elements[0]
+      @integer_number = elements[0]
     end
   end
 
   class TreeNode10 < TreeNode
-    attr_reader :base64_value
+    attr_reader :number
 
     def initialize(text, offset, elements)
       super
-      @base64_value = elements[0]
+      @number = elements[0]
     end
   end
 
   class TreeNode11 < TreeNode
+    attr_reader :number
+
+    def initialize(text, offset, elements)
+      super
+      @number = elements[0]
+    end
+  end
+
+  class TreeNode12 < TreeNode
     attr_reader :base64_value
 
     def initialize(text, offset, elements)
@@ -117,7 +126,16 @@ module ExtendedJSON
     end
   end
 
-  class TreeNode12 < TreeNode
+  class TreeNode13 < TreeNode
+    attr_reader :base64_value
+
+    def initialize(text, offset, elements)
+      super
+      @base64_value = elements[0]
+    end
+  end
+
+  class TreeNode14 < TreeNode
     attr_reader :integer
 
     def initialize(text, offset, elements)
@@ -126,7 +144,16 @@ module ExtendedJSON
     end
   end
 
-  class TreeNode13 < TreeNode
+  class TreeNode15 < TreeNode
+    attr_reader :integer
+
+    def initialize(text, offset, elements)
+      super
+      @integer = elements[1]
+    end
+  end
+
+  class TreeNode16 < TreeNode
     attr_reader :integer
 
     def initialize(text, offset, elements)
@@ -135,40 +162,12 @@ module ExtendedJSON
     end
   end
 
-  class TreeNode14 < TreeNode
-    attr_reader :number
-
-    def initialize(text, offset, elements)
-      super
-      @number = elements[0]
-    end
-  end
-
-  class TreeNode15 < TreeNode
-    attr_reader :number
-
-    def initialize(text, offset, elements)
-      super
-      @number = elements[0]
-    end
-  end
-
-  class TreeNode16 < TreeNode
+  class TreeNode17 < TreeNode
     attr_reader :hex_string
 
     def initialize(text, offset, elements)
       super
       @hex_string = elements[0]
-    end
-  end
-
-  class TreeNode17 < TreeNode
-    attr_reader :value, :_
-
-    def initialize(text, offset, elements)
-      super
-      @value = elements[0]
-      @_ = elements[1]
     end
   end
 
@@ -183,36 +182,15 @@ module ExtendedJSON
   end
 
   class TreeNode19 < TreeNode
-    attr_reader :value, :integer_number, :_
+    attr_reader :integer_number
 
     def initialize(text, offset, elements)
       super
-      @value = elements[0]
-      @integer_number = elements[0]
-      @_ = elements[1]
+      @integer_number = elements[1]
     end
   end
 
   class TreeNode20 < TreeNode
-    attr_reader :timestamp_value
-
-    def initialize(text, offset, elements)
-      super
-      @timestamp_value = elements[1]
-    end
-  end
-
-  class TreeNode21 < TreeNode
-    attr_reader :value, :_
-
-    def initialize(text, offset, elements)
-      super
-      @value = elements[0]
-      @_ = elements[1]
-    end
-  end
-
-  class TreeNode22 < TreeNode
     attr_reader :number_long_value
 
     def initialize(text, offset, elements)
@@ -221,17 +199,7 @@ module ExtendedJSON
     end
   end
 
-  class TreeNode23 < TreeNode
-    attr_reader :value, :_
-
-    def initialize(text, offset, elements)
-      super
-      @value = elements[0]
-      @_ = elements[1]
-    end
-  end
-
-  class TreeNode24 < TreeNode
+  class TreeNode21 < TreeNode
     attr_reader :number_decimal_value
 
     def initialize(text, offset, elements)
@@ -240,17 +208,7 @@ module ExtendedJSON
     end
   end
 
-  class TreeNode25 < TreeNode
-    attr_reader :value, :_
-
-    def initialize(text, offset, elements)
-      super
-      @value = elements[0]
-      @_ = elements[1]
-    end
-  end
-
-  class TreeNode26 < TreeNode
+  class TreeNode22 < TreeNode
     attr_reader :date_value
 
     def initialize(text, offset, elements)
@@ -259,7 +217,7 @@ module ExtendedJSON
     end
   end
 
-  class TreeNode27 < TreeNode
+  class TreeNode23 < TreeNode
     attr_reader :string
 
     def initialize(text, offset, elements)
@@ -268,7 +226,7 @@ module ExtendedJSON
     end
   end
 
-  class TreeNode28 < TreeNode
+  class TreeNode24 < TreeNode
     attr_reader :comma
 
     def initialize(text, offset, elements)
@@ -653,46 +611,18 @@ module ExtendedJSON
         @offset = cached[1]
         return cached[0]
       end
-      index1, elements0 = @offset, []
-      address1 = FAILURE
-      address1 = _read___
-      unless address1 == FAILURE
-        address2 = FAILURE
-        index2 = @offset
-        address2 = _read_json_values
-        if address2 == FAILURE
-          @offset = index2
-          address2 = _read_mongo_literals
-          if address2 == FAILURE
-            @offset = index2
-            address2 = _read_mongo_types
-            if address2 == FAILURE
-              @offset = index2
-            end
-          end
-        end
-        unless address2 == FAILURE
-          elements0 << address2
-          address3 = FAILURE
-          address3 = _read___
-          unless address3 == FAILURE
-          else
-            elements0 = nil
+      index1 = @offset
+      address0 = _read_json_values
+      if address0 == FAILURE
+        @offset = index1
+        address0 = _read_mongo_literals
+        if address0 == FAILURE
+          @offset = index1
+          address0 = _read_mongo_types
+          if address0 == FAILURE
             @offset = index1
           end
-        else
-          elements0 = nil
-          @offset = index1
         end
-      else
-        elements0 = nil
-        @offset = index1
-      end
-      if elements0.nil?
-        address0 = FAILURE
-      else
-        address0 = TreeNode.new(@input[index1...@offset], index1, elements0)
-        @offset = @offset
       end
       @cache[:value][index0] = [address0, @offset]
       return address0
@@ -937,7 +867,6 @@ module ExtendedJSON
       address1 = FAILURE
       address1 = _read_double_quote
       unless address1 == FAILURE
-        elements0 << address1
         address2 = FAILURE
         remaining0, index2, elements1, address3 = 0, @offset, [], true
         until address3 == FAILURE
@@ -1032,7 +961,6 @@ module ExtendedJSON
           address6 = FAILURE
           address6 = _read_double_quote
           unless address6 == FAILURE
-            elements0 << address6
           else
             elements0 = nil
             @offset = index1
@@ -1066,7 +994,6 @@ module ExtendedJSON
       address1 = FAILURE
       address1 = _read_single_quote
       unless address1 == FAILURE
-        elements0 << address1
         address2 = FAILURE
         remaining0, index2, elements1, address3 = 0, @offset, [], true
         until address3 == FAILURE
@@ -1161,7 +1088,6 @@ module ExtendedJSON
           address6 = FAILURE
           address6 = _read_single_quote
           unless address6 == FAILURE
-            elements0 << address6
           else
             elements0 = nil
             @offset = index1
@@ -1278,7 +1204,7 @@ module ExtendedJSON
       if elements0.nil?
         address0 = FAILURE
       else
-        address0 = TreeNode8.new(@input[index1...@offset], index1, elements0)
+        address0 = @actions.make_string(@input, index1, @offset, elements0)
         @offset = @offset
       end
       @cache[:hex_single_quote][index0] = [address0, @offset]
@@ -1318,10 +1244,210 @@ module ExtendedJSON
       if elements0.nil?
         address0 = FAILURE
       else
-        address0 = TreeNode9.new(@input[index1...@offset], index1, elements0)
+        address0 = @actions.make_string(@input, index1, @offset, elements0)
         @offset = @offset
       end
       @cache[:hex_double_quote][index0] = [address0, @offset]
+      return address0
+    end
+
+    def _read_integer_string
+      address0, index0 = FAILURE, @offset
+      cached = @cache[:integer_string][index0]
+      if cached
+        @offset = cached[1]
+        return cached[0]
+      end
+      index1 = @offset
+      address0 = _read_integer_string_single
+      if address0 == FAILURE
+        @offset = index1
+        address0 = _read_integer_string_double
+        if address0 == FAILURE
+          @offset = index1
+        end
+      end
+      @cache[:integer_string][index0] = [address0, @offset]
+      return address0
+    end
+
+    def _read_integer_string_single
+      address0, index0 = FAILURE, @offset
+      cached = @cache[:integer_string_single][index0]
+      if cached
+        @offset = cached[1]
+        return cached[0]
+      end
+      index1, elements0 = @offset, []
+      address1 = FAILURE
+      address1 = _read_single_quote
+      unless address1 == FAILURE
+        address2 = FAILURE
+        address2 = _read_integer_number
+        unless address2 == FAILURE
+          elements0 << address2
+          address3 = FAILURE
+          address3 = _read_single_quote
+          unless address3 == FAILURE
+          else
+            elements0 = nil
+            @offset = index1
+          end
+        else
+          elements0 = nil
+          @offset = index1
+        end
+      else
+        elements0 = nil
+        @offset = index1
+      end
+      if elements0.nil?
+        address0 = FAILURE
+      else
+        address0 = @actions.make_numeric_string(@input, index1, @offset, elements0)
+        @offset = @offset
+      end
+      @cache[:integer_string_single][index0] = [address0, @offset]
+      return address0
+    end
+
+    def _read_integer_string_double
+      address0, index0 = FAILURE, @offset
+      cached = @cache[:integer_string_double][index0]
+      if cached
+        @offset = cached[1]
+        return cached[0]
+      end
+      index1, elements0 = @offset, []
+      address1 = FAILURE
+      address1 = _read_double_quote
+      unless address1 == FAILURE
+        address2 = FAILURE
+        address2 = _read_integer_number
+        unless address2 == FAILURE
+          elements0 << address2
+          address3 = FAILURE
+          address3 = _read_double_quote
+          unless address3 == FAILURE
+          else
+            elements0 = nil
+            @offset = index1
+          end
+        else
+          elements0 = nil
+          @offset = index1
+        end
+      else
+        elements0 = nil
+        @offset = index1
+      end
+      if elements0.nil?
+        address0 = FAILURE
+      else
+        address0 = @actions.make_numeric_string(@input, index1, @offset, elements0)
+        @offset = @offset
+      end
+      @cache[:integer_string_double][index0] = [address0, @offset]
+      return address0
+    end
+
+    def _read_number_string
+      address0, index0 = FAILURE, @offset
+      cached = @cache[:number_string][index0]
+      if cached
+        @offset = cached[1]
+        return cached[0]
+      end
+      index1 = @offset
+      address0 = _read_number_string_single
+      if address0 == FAILURE
+        @offset = index1
+        address0 = _read_number_string_double
+        if address0 == FAILURE
+          @offset = index1
+        end
+      end
+      @cache[:number_string][index0] = [address0, @offset]
+      return address0
+    end
+
+    def _read_number_string_single
+      address0, index0 = FAILURE, @offset
+      cached = @cache[:number_string_single][index0]
+      if cached
+        @offset = cached[1]
+        return cached[0]
+      end
+      index1, elements0 = @offset, []
+      address1 = FAILURE
+      address1 = _read_single_quote
+      unless address1 == FAILURE
+        address2 = FAILURE
+        address2 = _read_number
+        unless address2 == FAILURE
+          elements0 << address2
+          address3 = FAILURE
+          address3 = _read_single_quote
+          unless address3 == FAILURE
+          else
+            elements0 = nil
+            @offset = index1
+          end
+        else
+          elements0 = nil
+          @offset = index1
+        end
+      else
+        elements0 = nil
+        @offset = index1
+      end
+      if elements0.nil?
+        address0 = FAILURE
+      else
+        address0 = @actions.make_numeric_string(@input, index1, @offset, elements0)
+        @offset = @offset
+      end
+      @cache[:number_string_single][index0] = [address0, @offset]
+      return address0
+    end
+
+    def _read_number_string_double
+      address0, index0 = FAILURE, @offset
+      cached = @cache[:number_string_double][index0]
+      if cached
+        @offset = cached[1]
+        return cached[0]
+      end
+      index1, elements0 = @offset, []
+      address1 = FAILURE
+      address1 = _read_double_quote
+      unless address1 == FAILURE
+        address2 = FAILURE
+        address2 = _read_number
+        unless address2 == FAILURE
+          elements0 << address2
+          address3 = FAILURE
+          address3 = _read_double_quote
+          unless address3 == FAILURE
+          else
+            elements0 = nil
+            @offset = index1
+          end
+        else
+          elements0 = nil
+          @offset = index1
+        end
+      else
+        elements0 = nil
+        @offset = index1
+      end
+      if elements0.nil?
+        address0 = FAILURE
+      else
+        address0 = @actions.make_numeric_string(@input, index1, @offset, elements0)
+        @offset = @offset
+      end
+      @cache[:number_string_double][index0] = [address0, @offset]
       return address0
     end
 
@@ -1667,7 +1793,7 @@ module ExtendedJSON
       if elements0.nil?
         address0 = FAILURE
       else
-        address0 = TreeNode10.new(@input[index1...@offset], index1, elements0)
+        address0 = @actions.make_string(@input, index1, @offset, elements0)
         @offset = @offset
       end
       @cache[:base64_single_quote][index0] = [address0, @offset]
@@ -1707,7 +1833,7 @@ module ExtendedJSON
       if elements0.nil?
         address0 = FAILURE
       else
-        address0 = TreeNode11.new(@input[index1...@offset], index1, elements0)
+        address0 = @actions.make_string(@input, index1, @offset, elements0)
         @offset = @offset
       end
       @cache[:base64_dobule_quote][index0] = [address0, @offset]
@@ -1792,6 +1918,87 @@ module ExtendedJSON
         @offset = @offset
       end
       @cache[:number][index0] = [address0, @offset]
+      return address0
+    end
+
+    def _read_number_as_string
+      address0, index0 = FAILURE, @offset
+      cached = @cache[:number_as_string][index0]
+      if cached
+        @offset = cached[1]
+        return cached[0]
+      end
+      index1, elements0 = @offset, []
+      address1 = FAILURE
+      index2 = @offset
+      chunk0 = nil
+      if @offset < @input_size
+        chunk0 = @input[@offset...@offset + 1]
+      end
+      if chunk0 == "-"
+        address1 = TreeNode.new(@input[@offset...@offset + 1], @offset)
+        @offset = @offset + 1
+      else
+        address1 = FAILURE
+        if @offset > @failure
+          @failure = @offset
+          @expected = []
+        end
+        if @offset == @failure
+          @expected << "\"-\""
+        end
+      end
+      if address1 == FAILURE
+        address1 = TreeNode.new(@input[index2...index2], index2)
+        @offset = index2
+      end
+      unless address1 == FAILURE
+        elements0 << address1
+        address2 = FAILURE
+        address2 = _read_integer
+        unless address2 == FAILURE
+          elements0 << address2
+          address3 = FAILURE
+          index3 = @offset
+          address3 = _read_fraction
+          if address3 == FAILURE
+            address3 = TreeNode.new(@input[index3...index3], index3)
+            @offset = index3
+          end
+          unless address3 == FAILURE
+            elements0 << address3
+            address4 = FAILURE
+            index4 = @offset
+            address4 = _read_exponent
+            if address4 == FAILURE
+              address4 = TreeNode.new(@input[index4...index4], index4)
+              @offset = index4
+            end
+            unless address4 == FAILURE
+              elements0 << address4
+            else
+              elements0 = nil
+              @offset = index1
+            end
+          else
+            elements0 = nil
+            @offset = index1
+          end
+        else
+          elements0 = nil
+          @offset = index1
+        end
+      else
+        elements0 = nil
+        @offset = index1
+      end
+      if elements0.nil?
+        address0 = FAILURE
+      else
+        address0 = @actions.make_number_as_string(@input, index1, @offset, elements0)
+        @offset = @offset
+      end
+      @cache[:number_as_string][index0] = [address0, @offset]
       return address0
     end
 
@@ -2197,106 +2404,6 @@ module ExtendedJSON
       return address0
     end
 
-    def _read_number_string
-      address0, index0 = FAILURE, @offset
-      cached = @cache[:number_string][index0]
-      if cached
-        @offset = cached[1]
-        return cached[0]
-      end
-      index1 = @offset
-      address0 = _read_number_string_single
-      if address0 == FAILURE
-        @offset = index1
-        address0 = _read_number_string_double
-        if address0 == FAILURE
-          @offset = index1
-        end
-      end
-      @cache[:number_string][index0] = [address0, @offset]
-      return address0
-    end
-
-    def _read_number_string_single
-      address0, index0 = FAILURE, @offset
-      cached = @cache[:number_string_single][index0]
-      if cached
-        @offset = cached[1]
-        return cached[0]
-      end
-      index1, elements0 = @offset, []
-      address1 = FAILURE
-      address1 = _read_single_quote
-      unless address1 == FAILURE
-        address2 = FAILURE
-        address2 = _read_number
-        unless address2 == FAILURE
-          elements0 << address2
-          address3 = FAILURE
-          address3 = _read_single_quote
-          unless address3 == FAILURE
-          else
-            elements0 = nil
-            @offset = index1
-          end
-        else
-          elements0 = nil
-          @offset = index1
-        end
-      else
-        elements0 = nil
-        @offset = index1
-      end
-      if elements0.nil?
-        address0 = FAILURE
-      else
-        address0 = TreeNode14.new(@input[index1...@offset], index1, elements0)
-        @offset = @offset
-      end
-      @cache[:number_string_single][index0] = [address0, @offset]
-      return address0
-    end
-
-    def _read_number_string_double
-      address0, index0 = FAILURE, @offset
-      cached = @cache[:number_string_double][index0]
-      if cached
-        @offset = cached[1]
-        return cached[0]
-      end
-      index1, elements0 = @offset, []
-      address1 = FAILURE
-      address1 = _read_double_quote
-      unless address1 == FAILURE
-        address2 = FAILURE
-        address2 = _read_number
-        unless address2 == FAILURE
-          elements0 << address2
-          address3 = FAILURE
-          address3 = _read_double_quote
-          unless address3 == FAILURE
-          else
-            elements0 = nil
-            @offset = index1
-          end
-        else
-          elements0 = nil
-          @offset = index1
-        end
-      else
-        elements0 = nil
-        @offset = index1
-      end
-      if elements0.nil?
-        address0 = FAILURE
-      else
-        address0 = TreeNode15.new(@input[index1...@offset], index1, elements0)
-        @offset = @offset
-      end
-      @cache[:number_string_double][index0] = [address0, @offset]
-      return address0
-    end
-
     def _read_min_key
       address0, index0 = FAILURE, @offset
       cached = @cache[:min_key][index0]
@@ -2451,52 +2558,14 @@ module ExtendedJSON
         @offset = cached[1]
         return cached[0]
       end
-      index1, elements0 = @offset, []
-      address1 = FAILURE
-      index2 = @offset
-      address1 = _read_string
-      if address1 == FAILURE
-        @offset = index2
-        address1 = _read_integer_number
-        if address1 == FAILURE
-          @offset = index2
-        end
-      end
-      unless address1 == FAILURE
-        elements0 << address1
-        address2 = FAILURE
-        chunk0 = nil
-        if @offset < @input_size
-          chunk0 = @input[@offset...@offset + 0]
-        end
-        if chunk0 == ""
-          address2 = TreeNode.new(@input[@offset...@offset + 0], @offset)
-          @offset = @offset + 0
-        else
-          address2 = FAILURE
-          if @offset > @failure
-            @failure = @offset
-            @expected = []
-          end
-          if @offset == @failure
-            @expected << "\"\""
-          end
-        end
-        unless address2 == FAILURE
-          elements0 << address2
-        else
-          elements0 = nil
+      index1 = @offset
+      address0 = _read_string
+      if address0 == FAILURE
+        @offset = index1
+        address0 = _read_integer_number
+        if address0 == FAILURE
           @offset = index1
         end
-      else
-        elements0 = nil
-        @offset = index1
-      end
-      if elements0.nil?
-        address0 = FAILURE
-      else
-        address0 = TreeNode17.new(@input[index1...@offset], index1, elements0)
-        @offset = @offset
       end
       @cache[:bin_data_type][index0] = [address0, @offset]
       return address0
@@ -2580,56 +2649,6 @@ module ExtendedJSON
       return address0
     end
 
-    def _read_timestamp_value
-      address0, index0 = FAILURE, @offset
-      cached = @cache[:timestamp_value][index0]
-      if cached
-        @offset = cached[1]
-        return cached[0]
-      end
-      index1, elements0 = @offset, []
-      address1 = FAILURE
-      address1 = _read_integer_number
-      unless address1 == FAILURE
-        elements0 << address1
-        address2 = FAILURE
-        chunk0 = nil
-        if @offset < @input_size
-          chunk0 = @input[@offset...@offset + 0]
-        end
-        if chunk0 == ""
-          address2 = TreeNode.new(@input[@offset...@offset + 0], @offset)
-          @offset = @offset + 0
-        else
-          address2 = FAILURE
-          if @offset > @failure
-            @failure = @offset
-            @expected = []
-          end
-          if @offset == @failure
-            @expected << "\"\""
-          end
-        end
-        unless address2 == FAILURE
-          elements0 << address2
-        else
-          elements0 = nil
-          @offset = index1
-        end
-      else
-        elements0 = nil
-        @offset = index1
-      end
-      if elements0.nil?
-        address0 = FAILURE
-      else
-        address0 = TreeNode19.new(@input[index1...@offset], index1, elements0)
-        @offset = @offset
-      end
-      @cache[:timestamp_value][index0] = [address0, @offset]
-      return address0
-    end
-
     def _read_timestamp
       address0, index0 = FAILURE, @offset
       cached = @cache[:timestamp][index0]
@@ -2661,14 +2680,14 @@ module ExtendedJSON
         address2 = _read_type_open
         unless address2 == FAILURE
           address3 = FAILURE
-          address3 = _read_timestamp_value
+          address3 = _read_integer_number
           unless address3 == FAILURE
             elements0 << address3
             address4 = FAILURE
             address4 = _read_delimiter
             unless address4 == FAILURE
               address5 = FAILURE
-              address5 = _read_timestamp_value
+              address5 = _read_integer_number
               unless address5 == FAILURE
                 elements0 << address5
                 address6 = FAILURE
@@ -2715,52 +2734,14 @@ module ExtendedJSON
         @offset = cached[1]
         return cached[0]
       end
-      index1, elements0 = @offset, []
-      address1 = FAILURE
-      index2 = @offset
-      address1 = _read_number
-      if address1 == FAILURE
-        @offset = index2
-        address1 = _read_number_string
-        if address1 == FAILURE
-          @offset = index2
-        end
-      end
-      unless address1 == FAILURE
-        elements0 << address1
-        address2 = FAILURE
-        chunk0 = nil
-        if @offset < @input_size
-          chunk0 = @input[@offset...@offset + 0]
-        end
-        if chunk0 == ""
-          address2 = TreeNode.new(@input[@offset...@offset + 0], @offset)
-          @offset = @offset + 0
-        else
-          address2 = FAILURE
-          if @offset > @failure
-            @failure = @offset
-            @expected = []
-          end
-          if @offset == @failure
-            @expected << "\"\""
-          end
-        end
-        unless address2 == FAILURE
-          elements0 << address2
-        else
-          elements0 = nil
+      index1 = @offset
+      address0 = _read_integer_number
+      if address0 == FAILURE
+        @offset = index1
+        address0 = _read_integer_string
+        if address0 == FAILURE
           @offset = index1
         end
-      else
-        elements0 = nil
-        @offset = index1
-      end
-      if elements0.nil?
-        address0 = FAILURE
-      else
-        address0 = TreeNode21.new(@input[index1...@offset], index1, elements0)
-        @offset = @offset
       end
       @cache[:number_long_value][index0] = [address0, @offset]
       return address0
@@ -2836,52 +2817,14 @@ module ExtendedJSON
         @offset = cached[1]
         return cached[0]
       end
-      index1, elements0 = @offset, []
-      address1 = FAILURE
-      index2 = @offset
-      address1 = _read_number
-      if address1 == FAILURE
-        @offset = index2
-        address1 = _read_number_string
-        if address1 == FAILURE
-          @offset = index2
-        end
-      end
-      unless address1 == FAILURE
-        elements0 << address1
-        address2 = FAILURE
-        chunk0 = nil
-        if @offset < @input_size
-          chunk0 = @input[@offset...@offset + 0]
-        end
-        if chunk0 == ""
-          address2 = TreeNode.new(@input[@offset...@offset + 0], @offset)
-          @offset = @offset + 0
-        else
-          address2 = FAILURE
-          if @offset > @failure
-            @failure = @offset
-            @expected = []
-          end
-          if @offset == @failure
-            @expected << "\"\""
-          end
-        end
-        unless address2 == FAILURE
-          elements0 << address2
-        else
-          elements0 = nil
+      index1 = @offset
+      address0 = _read_number_as_string
+      if address0 == FAILURE
+        @offset = index1
+        address0 = _read_number_string
+        if address0 == FAILURE
           @offset = index1
         end
-      else
-        elements0 = nil
-        @offset = index1
-      end
-      if elements0.nil?
-        address0 = FAILURE
-      else
-        address0 = TreeNode23.new(@input[index1...@offset], index1, elements0)
-        @offset = @offset
       end
       @cache[:number_decimal_value][index0] = [address0, @offset]
       return address0
@@ -3068,52 +3011,14 @@ module ExtendedJSON
         @offset = cached[1]
         return cached[0]
       end
-      index1, elements0 = @offset, []
-      address1 = FAILURE
-      index2 = @offset
-      address1 = _read_integer_number
-      if address1 == FAILURE
-        @offset = index2
-        address1 = _read_string
-        if address1 == FAILURE
-          @offset = index2
-        end
-      end
-      unless address1 == FAILURE
-        elements0 << address1
-        address2 = FAILURE
-        chunk0 = nil
-        if @offset < @input_size
-          chunk0 = @input[@offset...@offset + 0]
-        end
-        if chunk0 == ""
-          address2 = TreeNode.new(@input[@offset...@offset + 0], @offset)
-          @offset = @offset + 0
-        else
-          address2 = FAILURE
-          if @offset > @failure
-            @failure = @offset
-            @expected = []
-          end
-          if @offset == @failure
-            @expected << "\"\""
-          end
-        end
-        unless address2 == FAILURE
-          elements0 << address2
-        else
-          elements0 = nil
+      index1 = @offset
+      address0 = _read_integer_number
+      if address0 == FAILURE
+        @offset = index1
+        address0 = _read_string
+        if address0 == FAILURE
           @offset = index1
         end
-      else
-        elements0 = nil
-        @offset = index1
-      end
-      if elements0.nil?
-        address0 = FAILURE
-      else
-        address0 = TreeNode25.new(@input[index1...@offset], index1, elements0)
-        @offset = @offset
       end
       @cache[:date_value][index0] = [address0, @offset]
       return address0
@@ -3757,7 +3662,7 @@ module ExtendedJSON
       if elements0.nil?
         address0 = FAILURE
       else
-        address0 = TreeNode28.new(@input[index1...@offset], index1, elements0)
+        address0 = TreeNode24.new(@input[index1...@offset], index1, elements0)
         @offset = @offset
       end
       @cache[:delimiter][index0] = [address0, @offset]

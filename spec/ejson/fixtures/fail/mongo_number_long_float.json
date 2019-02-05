@@ -1,0 +1,9 @@
+[
+    NumberLong( "13.56"  ),
+    NumberLong( -0.01 ),
+    NumberLong(
+      42.0000000001
+    ),
+    NumberLong( 41.343953e-54 ),
+    NumberLong( 1e-13 ),
+]

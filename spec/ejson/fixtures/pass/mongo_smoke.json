@@ -1,39 +1,31 @@
 [
-  ObjectId('5c520a538628ea8c13261c61') ,
+  ObjectId('5c520a538628ea8c13261c61'),
   ObjectId(  '5c520a538628ea8c13261c62'  ) ,
   ObjectId("5c520a538628ea8c13261c63") ,
   ObjectId( "5c520a538628ea8c13261c64" ) ,
   ObjectId  ( "5c520a538628ea8c13261c65"
-)
-
-,
+),
 
   BinData(  4, "adaEs+/="   ) ,
-  BinData(   "generic",    "adaEs+/=") ,
+  BinData(   "generic",    "adaEs+/="),
 
-  Timestamp(    58305,    58    ) ,
+  Timestamp(    58305,    58    ),
 
-  NumberLong( "13.56"  ),
-
-  NumberLong( -0.01 ),
-  NumberLong(
-    42.0000000001
-  ),
-  NumberLong( 41.343953e-54 ),
-  NumberLong( 1e-13 ),
+  NumberLong(9223372036854775808),
+  NumberLong("9223372036854775801"),
 
   NumberDecimal( "42" ),
-  NumberLong( -42.0000000001 ),
-  NumberLong( 42e-54 ),
+  NumberDecimal( -42.0000000001 ),
+  NumberDecimal( 4201e-45 ),
 
   ISODate(  48305 ),
-  ISODate(  "2448-02-12T19:59:44.455Z"    )  ,
+  ISODate(  "2448-02-12T19:59:44.455Z"    ),
 
   new Date(   557433333 ),
-  new   Date(  "1448-12-30T01:01:01.001Z"   ) ,
+  new   Date(  "1448-12-30T01:01:01.001Z"   ),
 
-  /foo\/"bar"/i ,
-  /'bazillo'+483111/ ,
+  /foo\/"bar"/i,
+  /'bazillo'+483111/,
 
   DBRef("plans",
   '5c5483d28628ea4f77010bc3')
