@@ -3,7 +3,7 @@ RSpec.describe EJSON do
     expect(EJSON::VERSION).not_to be nil
   end
 
-  fixtures = Dir[File.join(File.dirname(__FILE__), 'fixtures/pass/*.json')]
+  fixtures = Dir[File.join(File.dirname(__FILE__), 'fixtures/pass/*.json')].sort
   fixtures.each do |fixture|
     content = File.read(fixture)
 
@@ -13,7 +13,7 @@ RSpec.describe EJSON do
     end
   end
 
-  fixtures = Dir[File.join(File.dirname(__FILE__), 'fixtures/fail/*.json')]
+  fixtures = Dir[File.join(File.dirname(__FILE__), 'fixtures/fail/*.json')].sort
   fixtures.each do |fixture|
     content = File.read(fixture)
 
