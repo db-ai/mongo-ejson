@@ -4,7 +4,7 @@ grammar ExtendedJSON
 
   object                 <- (non_empty_object / empty_object)
 
-  pair                   <- string @assignment value
+  pair                   <- @__ string @assignment value
                           %make_pair
 
   non_empty_object       <- @object_open
@@ -27,7 +27,7 @@ grammar ExtendedJSON
                             @array_close
                           %make_empty_array
 
-  value                  <- json_values / mongo_literals / mongo_types
+  value                  <- @__ (json_values / mongo_literals / mongo_types) @__
 
   json_values            <- object / array / number / string / boolean / null
   mongo_literals         <- min_key / max_key / undefined / regexp_string
@@ -191,7 +191,7 @@ grammar ExtendedJSON
   comment                <- "//" [^\n]*
   __                     <- (space / new_line / comment)*
 
-  delimiter              <- @space* comma @space*
+  delimiter              <- @__ comma @__
   assignment             <- @__ @colon @__
 
   object_open            <- @__ @left_brace @__

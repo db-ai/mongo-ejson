@@ -359,16 +359,23 @@ module ExtendedJSON
       end
       index1, elements0 = @offset, []
       address1 = FAILURE
-      address1 = _read_string
+      address1 = _read___
       unless address1 == FAILURE
-        elements0 << address1
         address2 = FAILURE
-        address2 = _read_assignment
+        address2 = _read_string
         unless address2 == FAILURE
+          elements0 << address2
           address3 = FAILURE
-          address3 = _read_value
+          address3 = _read_assignment
           unless address3 == FAILURE
-            elements0 << address3
+            address4 = FAILURE
+            address4 = _read_value
+            unless address4 == FAILURE
+              elements0 << address4
+            else
+              elements0 = nil
+              @offset = index1
+            end
           else
             elements0 = nil
             @offset = index1
@@ -646,18 +653,46 @@ module ExtendedJSON
         @offset = cached[1]
         return cached[0]
       end
-      index1 = @offset
-      address0 = _read_json_values
-      if address0 == FAILURE
-        @offset = index1
-        address0 = _read_mongo_literals
-        if address0 == FAILURE
-          @offset = index1
-          address0 = _read_mongo_types
-          if address0 == FAILURE
-            @offset = index1
+      index1, elements0 = @offset, []
+      address1 = FAILURE
+      address1 = _read___
+      unless address1 == FAILURE
+        address2 = FAILURE
+        index2 = @offset
+        address2 = _read_json_values
+        if address2 == FAILURE
+          @offset = index2
+          address2 = _read_mongo_literals
+          if address2 == FAILURE
+            @offset = index2
+            address2 = _read_mongo_types
+            if address2 == FAILURE
+              @offset = index2
+            end
           end
         end
+        unless address2 == FAILURE
+          elements0 << address2
+          address3 = FAILURE
+          address3 = _read___
+          unless address3 == FAILURE
+          else
+            elements0 = nil
+            @offset = index1
+          end
+        else
+          elements0 = nil
+          @offset = index1
+        end
+      else
+        elements0 = nil
+        @offset = index1
+      end
+      if elements0.nil?
+        address0 = FAILURE
+      else
+        address0 = TreeNode.new(@input[index1...@offset], index1, elements0)
+        @offset = @offset
       end
       @cache[:value][index0] = [address0, @offset]
       return address0
@@ -3698,41 +3733,15 @@ module ExtendedJSON
       end
       index1, elements0 = @offset, []
       address1 = FAILURE
-      remaining0, index2, elements1, address2 = 0, @offset, [], true
-      until address2 == FAILURE
-        address2 = _read_space
-        unless address2 == FAILURE
-          elements1 << address2
-          remaining0 -= 1
-        end
-      end
-      if remaining0 <= 0
-        address1 = TreeNode.new(@input[index2...@offset], index2, elements1)
-        @offset = @offset
-      else
-        address1 = FAILURE
-      end
+      address1 = _read___
       unless address1 == FAILURE
-        address3 = FAILURE
-        address3 = _read_comma
-        unless address3 == FAILURE
-          elements0 << address3
-          address4 = FAILURE
-          remaining1, index3, elements2, address5 = 0, @offset, [], true
-          until address5 == FAILURE
-            address5 = _read_space
-            unless address5 == FAILURE
-              elements2 << address5
-              remaining1 -= 1
-            end
-          end
-          if remaining1 <= 0
-            address4 = TreeNode.new(@input[index3...@offset], index3, elements2)
-            @offset = @offset
-          else
-            address4 = FAILURE
-          end
-          unless address4 == FAILURE
+        address2 = FAILURE
+        address2 = _read_comma
+        unless address2 == FAILURE
+          elements0 << address2
+          address3 = FAILURE
+          address3 = _read___
+          unless address3 == FAILURE
           else
             elements0 = nil
             @offset = index1
