@@ -18,7 +18,7 @@ module ParserAction
     def make_number_long(input, start, _end, elements)
       value = elements.first.value
 
-      if value.is_a? ::EJSON::TreeNode
+      if value.respond_to? :elements
         value.elements.first
       else
         value
@@ -28,7 +28,7 @@ module ParserAction
     def make_number_decimal(input, start, _end, elements)
       value = elements.first.value
 
-      if value.is_a? ::EJSON::TreeNode
+      if value.respond_to? :elements
         number = value.elements.first
       else
         number = value

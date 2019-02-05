@@ -3,12 +3,29 @@ require 'ejson/parser_action/ruby'
 module ParserAction
   class BSON < ParserAction::Ruby
     def make_object_id(input, start, _end, elements)
-      value = elements.first.first.hex_value.text
+      value = elements.first.hex_value.text
       ::BSON::ObjectId.from_string(value)
     end
 
+    NUMBER_TO_TYPE = {
+      0    =>  :generic,
+      1    =>  :function,
+      2    =>  :old,
+      3    =>  :uuid_old,
+      4    =>  :uuid,
+      5    =>  :md5,
+      128  =>  :user,
+    }
+
     def make_bin_data(input, start, _end, elements)
-      ::BSON::BinData.new(elements.first.value, elements.last.text)
+      data = elements.last.text
+      type = elements.first.value
+
+      if type.is_a? Numeric
+        type = NUMBER_TO_TYPE[type]
+      end
+
+      ::BSON::Binary.new(data, type.to_sym)
     end
 
     def make_timestamp(input, start, _end, elements)
@@ -18,7 +35,7 @@ module ParserAction
     def make_number_long(input, start, _end, elements)
       value = elements.first.value
 
-      if value.is_a? ::EJSON::TreeNode
+      if value.respond_to? :elements
         value.elements.first
       else
         value
@@ -28,7 +45,7 @@ module ParserAction
     def make_number_decimal(input, start, _end, elements)
       value = elements.first.value
 
-      if value.is_a? ::EJSON::TreeNode
+      if value.respond_to? :elements
         number = value.elements.first
       else
         number = value
@@ -43,7 +60,7 @@ module ParserAction
       case value
       when String
         DateTime.parse(value)
-      when Number
+      when Numeric
         Time.at(value)
       else
         raise ArgumentError,
