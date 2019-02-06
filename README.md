@@ -6,7 +6,7 @@ This is a parser for mongo "flavoured" JSON, that supports mongo specific litera
 
 It can instantiate corresponding BSON objects or produce Extended JSON objects.
 
-Supported literals:
+## Supported literals
 
 * `undefined`
 * `MinKey`
@@ -26,11 +26,23 @@ Supported literals:
 * `/<regexp>/<options>`
 * `DBRef(<name_string>, <object_id_hex_string>)`
 
-Supported JSON extensions:
+## Supported JSON extensions:
 
 * Single quoted strings
 * Single line comments `//`
 
-Planned JSON extensions:
+## Planned JSON extensions:
 
 * Multi-line comments: `/* */`
+
+## Issues
+
+* String: following not escaped chars should fail, but pass
+
+    * Backspace (must be replaced with `\b`). no fixture
+    * Form feed (must be replaced with `\f`), no fixture
+    * Newline (must be replaced with `\n`)
+    * Carriage return (must be replaced with `\r`), no fixture
+    * Tab (must be replaced with `\t`)
+
+
