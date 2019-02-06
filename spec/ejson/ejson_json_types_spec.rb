@@ -1,0 +1,62 @@
+RSpec.describe EJSON do
+  EXPECTED_WRAP = [
+    "JSON Test Pattern pass1",
+    {
+      "object with 1 member" => ["array with 1 element"]
+    },
+    {}, [], -42, true, false, nil,
+    {
+      "integer"       => 1234567890,
+      "real"          => -9876.54321,
+      "e"             => 1.23456789e-13,
+      "E"             => 1.23456789e+34,
+      ""              => 23456789012e+666,
+      "zero"          => 0,
+      "one"           => 1,
+      "space"         => " ",
+      "quote"         => "\"",
+      "backslash"     => "\\",
+      "controls"      => "\b\f\n\r\t",
+      "slash"         => "/ & \\/",
+      "alpha"         => "abcdefghijklmnopqrstuvwyz",
+      "ALPHA"         => "ABCDEFGHIJKLMNOPQRSTUVWYZ",
+      "digit"         => "0123456789",
+      "special"       => "`1~!@\#$%^&*()_+-={':[,]}|;.</>?",
+      "hex"           => "\u0123\u4567\u89AB\uCDEF\uabcd\uef4A",
+      "true"          => true,
+      "false"         => false,
+      "null"          => nil,
+      "array"         => [],
+      "object"        => {},
+      "address"       => "50 St. James Street",
+      "url"           => "http://www.JSON.org/",
+      "comment"       => "// /* <!-- --",
+      "# -- --> */"   =>" ",
+      " s p a c e d " => [1, 2, 3, 4, 5, 6, 7],
+      "compact"       => [1, 2, 3, 4, 5, 6, 7],
+      "jsontext"      => "{\"object with 1 member\":[\"array with 1 element\"]}",
+      "quotes"        => "&#34; \" %22 0x22 034 &#x22;",
+"\\/\\\"\uCAFE\uBABE\uAB98\uFCDE\ubcda\uef4A\b\f\n\r\t`1~!@#$%^&*()_+-=[]{}|;:',./<>?" =>"A key can be any string"
+    },
+    0.5, 98.6, 99.44, 1066,
+    "rosebud"
+  ]
+
+  it "parses JSON object" do
+    fixture = File.join(File.dirname(__FILE__), 'fixtures/pass/json_smoke.json')
+    content = File.read(fixture)
+
+    result = EJSON.parse_wrap(content)
+
+    expect(result).to eq(EXPECTED_WRAP)
+  end
+
+  it "parses JSON object" do
+    fixture = File.join(File.dirname(__FILE__), 'fixtures/pass/json_smoke.json')
+    content = File.read(fixture)
+
+    result = EJSON.parse_bson(content)
+
+    expect(result).to eq(EXPECTED_WRAP)
+  end
+end

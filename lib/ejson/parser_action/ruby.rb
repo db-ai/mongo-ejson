@@ -99,7 +99,7 @@ module ParserAction
 
     def _number_from_string(string)
       if string.include? 'e'
-        string = format("%f", string)
+        return Float(string)
       end
 
       if string.include? '.'
