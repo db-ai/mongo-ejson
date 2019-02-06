@@ -22,5 +22,5 @@ end
 
 desc "Prepare assets"
 task :assets => [:test, :compile_js] do
-  mv 'src/ejson.js', 'lib/assets/ejson.js'
+  mv 'src/ejson.js', 'vendor/assets/javascripts/ejson.js'
 end
