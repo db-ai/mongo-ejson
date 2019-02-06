@@ -6,7 +6,7 @@ CANOPY_BIN = ENV.fetch('CANOPY_BIN') { 'canopy' }
 
 RSpec::Core::RakeTask.new(:spec)
 
-task :default => :test
+task :default => :spec
 
 task :compile_js do
   sh %{ #{CANOPY_BIN} src/ejson.peg --lang javascript }
