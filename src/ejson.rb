@@ -1,4 +1,4 @@
-# This file was generated from ../mongo-ejson/src/ejson.peg
+# This file was generated from src/ejson.peg
 # See http://canopy.jcoglan.com/ for documentation.
 
 module ExtendedJSON
