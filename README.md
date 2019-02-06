@@ -1,4 +1,6 @@
-# mongo-json
+# mongo-ejson
+
+[![Build Status](https://travis-ci.org/db-ai/mongo-ejson.svg?branch=master)](https://travis-ci.org/db-ai/mongo-ejson)
 
 This is a parser for mongo "flavoured" JSON, that supports mongo specific literals like `ISODate` or `ObjectId`, as well as some other nasty non-json things.
 
