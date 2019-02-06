@@ -10,3 +10,4 @@ rvm:
   - jruby
   - truffleruby
 before_install: gem install bundler -v 2.0.1
+script: rake spec
