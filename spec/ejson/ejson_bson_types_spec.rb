@@ -16,9 +16,9 @@ RSpec.describe EJSON do
     9223372036854775808,
     9223372036854775801,
 
-    BigDecimal.new("42"),
-    BigDecimal.new("-42.0000000001"),
-    BigDecimal.new("4201e-45"),
+    BigDecimal("42"),
+    BigDecimal("-42.0000000001"),
+    BigDecimal("4201e-45"),
 
     Time.at(48305),
     DateTime.parse("2448-02-12T19:59:44.455Z"),

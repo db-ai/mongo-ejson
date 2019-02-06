@@ -22,7 +22,7 @@ module ParserAction
     end
 
     def make_number_decimal(input, start, _end, elements)
-      BigDecimal.new(elements.first)
+      BigDecimal(elements.first)
     end
 
     def make_db_ref(input, start, _end, elements)
