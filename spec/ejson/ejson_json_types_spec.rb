@@ -42,7 +42,7 @@ RSpec.describe EJSON do
     "rosebud"
   ]
 
-  it "parses JSON object" do
+  it "parses wrapped JSON types" do
     fixture = File.join(File.dirname(__FILE__), 'fixtures/pass/json_smoke.json')
     content = File.read(fixture)
 
@@ -51,7 +51,7 @@ RSpec.describe EJSON do
     expect(result).to eq(EXPECTED_WRAP)
   end
 
-  it "parses JSON object" do
+  it "parses mongo JSON types" do
     fixture = File.join(File.dirname(__FILE__), 'fixtures/pass/json_smoke.json')
     content = File.read(fixture)
 

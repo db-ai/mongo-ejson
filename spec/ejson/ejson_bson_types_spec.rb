@@ -72,7 +72,7 @@ RSpec.describe EJSON do
     {:$id=>"5c5483d28628ea4f77010bc3", :$ref=>"plans"}
   ]
 
-  it "parses bson types" do
+  it "parses mongo types" do
     fixture = File.join(File.dirname(__FILE__), 'fixtures/pass/mongo_smoke.json')
     content = File.read(fixture)
 
