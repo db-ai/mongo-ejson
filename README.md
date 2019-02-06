@@ -10,6 +10,7 @@ It can instantiate corresponding BSON objects or produce Extended JSON objects.
 
 Runtime:
   * Ruby 2.5+
+  * JRuby 9.2+
 
 Development:
   * [canopy](https://github.com/jcoglan/canopy) from master branch
