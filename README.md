@@ -6,6 +6,14 @@ This is a parser for mongo "flavoured" JSON, that supports mongo specific litera
 
 It can instantiate corresponding BSON objects or produce Extended JSON objects.
 
+## Requirements
+
+Runtime:
+  * Ruby 2.5+
+
+Development:
+  * [canopy](https://github.com/jcoglan/canopy) from master branch
+
 ## Supported literals
 
 * `undefined`
