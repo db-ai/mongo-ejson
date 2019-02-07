@@ -23,14 +23,20 @@ class EJSON
     end
 
     private
+
     def boot_bson
       return if defined? ::BSON
-      require 'bson' rescue nil
 
-      unless defined? ::BSON
-        raise "Can't find constant ::BSON. Seems like gem 'bson' is not " \
-              "loaded. Make sure it's available in your bundle."
+      begin
+        require 'bson'
+      rescue StandardError
+        nil
       end
+
+      return if defined? ::BSON
+
+      raise "Can't find constant ::BSON. Seems like gem 'bson' is not " \
+            "loaded. Make sure it's available in your bundle."
     end
   end
 end

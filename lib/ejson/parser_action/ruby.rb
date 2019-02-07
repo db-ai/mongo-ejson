@@ -3,15 +3,15 @@ require 'date'
 
 module ParserAction
   class Ruby < ParserAction::Abstract
-    def make_root(input, start, _end, elements)
+    def make_root(_input, _starts_at, _ends_at, elements)
       elements.first
     end
 
-    def make_object(input, start, _end, elements)
+    def make_object(_input, _starts_at, _ends_at, elements)
       first_pair = elements.first
       other_pairs = elements.last
 
-      object = {first_pair[0] => first_pair[1]}
+      object = { first_pair[0] => first_pair[1] }
       other_pairs.each do |element|
         pair = element.pair
         object[pair.first] = pair.last
@@ -20,60 +20,60 @@ module ParserAction
       object
     end
 
-    def make_pair(input, start, _end, elements)
+    def make_pair(_input, _starts_at, _ends_at, elements)
       elements
     end
 
-    def make_empty_object(input, start, _end, elements)
+    def make_empty_object(_input, _starts_at, _ends_at, _elements)
       {}
     end
 
-    def make_string(input, start, _end, elements)
-      %Q|"#{elements.first.text}"|.undump
+    def make_string(_input, _starts_at, _ends_at, elements)
+      %("#{elements.first.text}").undump
     end
 
-    def make_numeric_string(input, start, _end, elements)
+    def make_numeric_string(_input, _starts_at, _ends_at, elements)
       elements.first
     end
 
-    def make_number_as_string(input, start, _end, elements)
-      string = input[start..._end]
+    def make_number_as_string(input, starts_at, ends_at, _elements)
+      string = input[starts_at...ends_at]
       string.downcase!
 
       string
     end
 
-    def make_array(input, start, _end, elements)
+    def make_array(_input, _starts_at, _ends_at, elements)
       list = [elements[0]]
       elements[1].each { |el| list << el.value }
       list
     end
 
-    def make_empty_array(input, start, _end, elements)
+    def make_empty_array(_input, _starts_at, _ends_at, _elements)
       []
     end
 
-    def make_number(input, start, _end, elements)
-      string = input[start..._end]
+    def make_number(input, starts_at, ends_at, _elements)
+      string = input[starts_at...ends_at]
       string.downcase!
 
       _number_from_string(string)
     end
 
-    def make_null(input, start, _end)
+    def make_null(_input, _starts_at, _ends_at)
       nil
     end
 
-    def make_true(input, start, _end)
+    def make_true(_input, _starts_at, _ends_at)
       true
     end
 
-    def make_false(input, start, _end)
+    def make_false(_input, _starts_at, _ends_at)
       false
     end
 
     # Makes ruby date from mongo Data type
-    def make_date(input, start, _end, elements)
+    def make_date(_input, _starts_at, _ends_at, elements)
       value = elements.first
 
       case value
@@ -87,20 +87,18 @@ module ParserAction
       end
     end
 
-    def make_regexp(input, start, _end, elements)
+    def make_regexp(_input, _starts_at, _ends_at, elements)
       Regexp.new(elements.first.text, elements.last.text)
     end
 
-    def make_number_long(input, start, _end, elements)
-      value = elements.first
+    def make_number_long(_input, _starts_at, _ends_at, elements)
+      elements.first
     end
 
     private
 
     def _number_from_string(string)
-      if string.include? 'e'
-        return Float(string)
-      end
+      return Float(string) if string.include? 'e'
 
       if string.include? '.'
         string.to_f

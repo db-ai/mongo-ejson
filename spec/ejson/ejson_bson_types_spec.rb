@@ -8,31 +8,31 @@ RSpec.describe EJSON do
     Wrap::ObjectId.new('5c520a538628ea8c13261c64'),
     Wrap::ObjectId.new('5c520a538628ea8c13261c65'),
 
-    Wrap::BinData.new(4, "adaEs+/="),
-    Wrap::BinData.new("generic", "adaEs+/="),
+    Wrap::BinData.new(4, 'adaEs+/='),
+    Wrap::BinData.new('generic', 'adaEs+/='),
 
-    Wrap::Timestamp.new(58305, 58),
+    Wrap::Timestamp.new(58_305, 58),
 
-    9223372036854775808,
-    9223372036854775801,
+    9_223_372_036_854_775_808,
+    9_223_372_036_854_775_801,
 
-    BigDecimal("42"),
-    BigDecimal("-42.0000000001"),
-    BigDecimal("4201e-45"),
+    BigDecimal('42'),
+    BigDecimal('-42.0000000001'),
+    BigDecimal('4201e-45'),
 
-    Time.at(48305),
-    DateTime.parse("2448-02-12T19:59:44.455Z"),
+    Time.at(48_305),
+    DateTime.parse('2448-02-12T19:59:44.455Z'),
 
-    Time.at(557433333),
-    DateTime.parse("1448-12-30T01:01:01.001Z"),
+    Time.at(557_433_333),
+    DateTime.parse('1448-12-30T01:01:01.001Z'),
 
     Regexp.new('foo\/"bar"', 'i'),
     Regexp.new("'bazillo'+483111", 'i'),
 
-    Wrap::DBRef.new("plans", "5c5483d28628ea4f77010bc3")
-  ]
+    Wrap::DBRef.new('plans', '5c5483d28628ea4f77010bc3')
+  ].freeze
 
-  it "parses wrapped types" do
+  it 'parses wrapped types' do
     fixture = File.join(File.dirname(__FILE__), 'fixtures/pass/mongo_smoke.json')
     content = File.read(fixture)
 
@@ -48,31 +48,31 @@ RSpec.describe EJSON do
     BSON::ObjectId.from_string('5c520a538628ea8c13261c64'),
     BSON::ObjectId.from_string('5c520a538628ea8c13261c65'),
 
-    BSON::Binary.new("adaEs+/=", :uuid),
-    BSON::Binary.new("adaEs+/=", :generic),
+    BSON::Binary.new('adaEs+/=', :uuid),
+    BSON::Binary.new('adaEs+/=', :generic),
 
-    BSON::Timestamp.new(58305, 58),
+    BSON::Timestamp.new(58_305, 58),
 
-    9223372036854775808,
-    9223372036854775801,
+    9_223_372_036_854_775_808,
+    9_223_372_036_854_775_801,
 
-    BSON::Decimal128.new("42"),
-    BSON::Decimal128.new("-42.0000000001"),
-    BSON::Decimal128.new("4201e-45"),
+    BSON::Decimal128.new('42'),
+    BSON::Decimal128.new('-42.0000000001'),
+    BSON::Decimal128.new('4201e-45'),
 
-    Time.at(48305),
-    DateTime.parse("2448-02-12T19:59:44.455Z"),
+    Time.at(48_305),
+    DateTime.parse('2448-02-12T19:59:44.455Z'),
 
-    Time.at(557433333),
-    DateTime.parse("1448-12-30T01:01:01.001Z"),
+    Time.at(557_433_333),
+    DateTime.parse('1448-12-30T01:01:01.001Z'),
 
     Regexp.new('foo\/"bar"', 'i'),
     Regexp.new("'bazillo'+483111", 'i'),
 
-    {:$id=>"5c5483d28628ea4f77010bc3", :$ref=>"plans"}
-  ]
+    { :$id => '5c5483d28628ea4f77010bc3', :$ref => 'plans' }
+  ].freeze
 
-  it "parses mongo types" do
+  it 'parses mongo types' do
     fixture = File.join(File.dirname(__FILE__), 'fixtures/pass/mongo_smoke.json')
     content = File.read(fixture)
 
