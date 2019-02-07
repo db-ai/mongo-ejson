@@ -6,4 +6,10 @@ rvm:
   - 2.6
   - 2.5
   - jruby-9.2
-before_install: gem install bundler -v 2.0.1
+
+before_install:
+  - gem install bundler -v 2.0.1
+
+script:
+  - bundle exec rspec
+  - bundle exec rubocop
