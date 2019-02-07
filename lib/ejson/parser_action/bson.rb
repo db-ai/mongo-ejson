@@ -41,8 +41,8 @@ module ParserAction
 
     def make_db_ref(input, start, _end, elements)
       {
-          "$ref": elements.first,
-          "$id": elements.last,
+        "$ref": elements.first,
+        "$id": elements.last,
       }
     end
 

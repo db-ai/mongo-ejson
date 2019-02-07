@@ -9,11 +9,11 @@ RSpec::Core::RakeTask.new(:spec)
 task :default => :spec
 
 task :compile_js do
-  sh %{ #{CANOPY_BIN} src/ejson.peg --lang javascript }
+  sh %( #{CANOPY_BIN} src/ejson.peg --lang javascript )
 end
 
 task :compile_ruby do
-  sh %{ #{CANOPY_BIN} src/ejson.peg --lang ruby }
+  sh %( #{CANOPY_BIN} src/ejson.peg --lang ruby )
 end
 
 desc "Build and run test suite"

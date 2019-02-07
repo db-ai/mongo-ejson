@@ -11,7 +11,7 @@ module ParserAction
       first_pair = elements.first
       other_pairs = elements.last
 
-      object = {first_pair[0] => first_pair[1]}
+      object = { first_pair[0] => first_pair[1] }
       other_pairs.each do |element|
         pair = element.pair
         object[pair.first] = pair.last
@@ -29,7 +29,7 @@ module ParserAction
     end
 
     def make_string(input, start, _end, elements)
-      %Q|"#{elements.first.text}"|.undump
+      %("#{elements.first.text}").undump
     end
 
     def make_numeric_string(input, start, _end, elements)
@@ -92,7 +92,7 @@ module ParserAction
     end
 
     def make_number_long(input, start, _end, elements)
-      value = elements.first
+      elements.first
     end
 
     private

@@ -1,0 +1,29 @@
+inherit_from: .rubocop_todo.yml
+
+AllCops:
+  Exclude:
+    - 'src/**/*'
+
+Metrics/LineLength:
+  Max: 120
+
+Lint/UnusedMethodArgument:
+  Enabled: false
+
+Layout/EndOfLine:
+  EnforcedStyle: lf
+
+Style/SymbolArray:
+  EnforcedStyle: brackets
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+
+Style/EmptyMethod:
+  EnforcedStyle: expanded
+
+Metrics/BlockLength:
+  Exclude:
+    - '*.gemspec'
+  ExcludedMethods:
+    - describe

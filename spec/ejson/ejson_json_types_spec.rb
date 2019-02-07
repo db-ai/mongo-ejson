@@ -2,7 +2,7 @@ RSpec.describe EJSON do
   EXPECTED_WRAP = [
     "JSON Test Pattern pass1",
     {
-      "object with 1 member" => ["array with 1 element"]
+      "object with 1 member" => ["array with 1 element"],
     },
     {}, [], -42, true, false, nil,
     {
@@ -36,7 +36,7 @@ RSpec.describe EJSON do
       "compact"       => [1, 2, 3, 4, 5, 6, 7],
       "jsontext"      => "{\"object with 1 member\":[\"array with 1 element\"]}",
       "quotes"        => "&#34; \" %22 0x22 034 &#x22;",
-"\\/\\\"\uCAFE\uBABE\uAB98\uFCDE\ubcda\uef4A\b\f\n\r\t`1~!@#$%^&*()_+-=[]{}|;:',./<>?" =>"A key can be any string"
+"\\/\\\"\uCAFE\uBABE\uAB98\uFCDE\ubcda\uef4A\b\f\n\r\t`1~!@#$%^&*()_+-=[]{}|;:',./<>?" =>"A key can be any string",
     },
     0.5, 98.6, 99.44, 1066,
     "rosebud"

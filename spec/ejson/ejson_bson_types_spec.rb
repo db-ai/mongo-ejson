@@ -69,7 +69,7 @@ RSpec.describe EJSON do
     Regexp.new('foo\/"bar"', 'i'),
     Regexp.new("'bazillo'+483111", 'i'),
 
-    {:$id=>"5c5483d28628ea4f77010bc3", :$ref=>"plans"}
+    { :$id=>"5c5483d28628ea4f77010bc3", :$ref=>"plans" }
   ]
 
   it "parses mongo types" do
