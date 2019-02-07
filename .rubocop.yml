@@ -27,3 +27,6 @@ Metrics/BlockLength:
     - '*.gemspec'
   ExcludedMethods:
     - describe
+
+Style/FrozenStringLiteralComment:
+  EnforcedStyle: when_needed
