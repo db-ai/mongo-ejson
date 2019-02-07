@@ -32,9 +32,3 @@ Style/FrozenStringLiteralComment:
 Layout/AlignHash:
   EnforcedHashRocketStyle: table
   EnforcedColonStyle: table
-
-Style/FrozenStringLiteralComment:
-  Enabled: false
-
-Style/Documentation:
-  Enabled: false
