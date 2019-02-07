@@ -1,37 +1,37 @@
 module ParserAction
   module AbstractJSON
     # JSON Entities
-    def make_root(input, start, _ending, elements)
+    def make_root(input, starts_at, _ends_at, elements)
     end
 
-    def make_object(input, start, _ending, elements)
+    def make_object(input, starts_at, _ends_at, elements)
     end
 
-    def make_pair(input, start, _ending, elements)
+    def make_pair(input, starts_at, _ends_at, elements)
     end
 
-    def make_empty_object(input, start, _ending, elements)
+    def make_empty_object(input, starts_at, _ends_at, elements)
     end
 
-    def make_string(input, start, _ending, elements)
+    def make_string(input, starts_at, _ends_at, elements)
     end
 
-    def make_array(input, start, _ending, elements)
+    def make_array(input, starts_at, _ends_at, elements)
     end
 
-    def make_empty_array(input, start, _ending, elements)
+    def make_empty_array(input, starts_at, _ends_at, elements)
     end
 
-    def make_number(input, start, _ending, elements)
+    def make_number(input, starts_at, _ends_at, elements)
     end
 
-    def make_null(input, start, _ending)
+    def make_null(input, starts_at, _ends_at)
     end
 
-    def make_true(input, start, _ending)
+    def make_true(input, starts_at, _ends_at)
     end
 
-    def make_false(input, start, _ending)
+    def make_false(input, starts_at, _ends_at)
     end
   end
 end
