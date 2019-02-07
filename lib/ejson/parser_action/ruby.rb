@@ -98,9 +98,7 @@ module ParserAction
     private
 
     def _number_from_string(string)
-      if string.include? 'e'
-        return Float(string)
-      end
+      return Float(string) if string.include? 'e'
 
       if string.include? '.'
         string.to_f

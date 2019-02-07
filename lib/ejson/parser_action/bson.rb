@@ -22,9 +22,7 @@ module ParserAction
       data = elements.last
       type = elements.first
 
-      if type.is_a? Numeric
-        type = NUMBER_TO_TYPE[type]
-      end
+      type = NUMBER_TO_TYPE[type] if type.is_a? Numeric
 
       ::BSON::Binary.new(data, type.to_sym)
     end
