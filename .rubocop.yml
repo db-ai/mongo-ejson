@@ -3,13 +3,10 @@ inherit_from: .rubocop_todo.yml
 AllCops:
   Exclude:
     - 'src/**/*'
-    - vendor/bundle/**/*
+    - 'vendor/bundle/**/*'
 
 Metrics/LineLength:
   Max: 120
-
-Lint/UnusedMethodArgument:
-  Enabled: false
 
 Layout/EndOfLine:
   EnforcedStyle: lf
