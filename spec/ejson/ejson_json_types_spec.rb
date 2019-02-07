@@ -6,6 +6,8 @@ RSpec.describe EJSON do
     },
     {}, [], -42, true, false, nil,
     {
+      # Disabling AlignHash Cop die to an extra long key in the end that makes the hash unreadable.
+      # rubocop:disable Layout/AlignHash
       "integer"       => 1234567890,
       "real"          => -9876.54321,
       "e"             => 1.23456789e-13,
@@ -31,16 +33,17 @@ RSpec.describe EJSON do
       "address"       => "50 St. James Street",
       "url"           => "http://www.JSON.org/",
       "comment"       => "// /* <!-- --",
-      "# -- --> */"   =>" ",
+      "# -- --> */"   => " ",
       " s p a c e d " => [1, 2, 3, 4, 5, 6, 7],
       "compact"       => [1, 2, 3, 4, 5, 6, 7],
       "jsontext"      => "{\"object with 1 member\":[\"array with 1 element\"]}",
       "quotes"        => "&#34; \" %22 0x22 034 &#x22;",
-"\\/\\\"\uCAFE\uBABE\uAB98\uFCDE\ubcda\uef4A\b\f\n\r\t`1~!@#$%^&*()_+-=[]{}|;:',./<>?" =>"A key can be any string",
+      "\\/\\\"\uCAFE\uBABE\uAB98\uFCDE\ubcda\uef4A\b\f\n\r\t`1~!@#$%^&*()_+-=[]{}|;:',./<>?" => "A key can be any string", # rubocop:disable Metrics/LineLength
+      # rubocop:enable Layout/AlignHash
     },
     0.5, 98.6, 99.44, 1066,
     "rosebud"
-  ]
+  ].freeze
 
   it "parses wrapped JSON types" do
     fixture = File.join(File.dirname(__FILE__), 'fixtures/pass/json_smoke.json')

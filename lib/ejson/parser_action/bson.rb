@@ -9,14 +9,14 @@ module ParserAction
     end
 
     NUMBER_TO_TYPE = {
-      0    =>  :generic,
-      1    =>  :function,
-      2    =>  :old,
-      3    =>  :uuid_old,
-      4    =>  :uuid,
-      5    =>  :md5,
-      128  =>  :user,
-    }
+      0   => :generic,
+      1   => :function,
+      2   => :old,
+      3   => :uuid_old,
+      4   => :uuid,
+      5   => :md5,
+      128 => :user,
+    }.freeze
 
     def make_bin_data(input, start, _ending, elements)
       data = elements.last
@@ -42,7 +42,7 @@ module ParserAction
     def make_db_ref(input, start, _ending, elements)
       {
         "$ref": elements.first,
-        "$id": elements.last,
+        "$id":  elements.last,
       }
     end
 

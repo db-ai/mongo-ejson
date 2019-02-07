@@ -30,3 +30,13 @@ Metrics/BlockLength:
 
 Style/FrozenStringLiteralComment:
   EnforcedStyle: when_needed
+
+Layout/AlignHash:
+  EnforcedHashRocketStyle: table
+  EnforcedColonStyle: table
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
