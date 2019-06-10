@@ -3,6 +3,10 @@ require 'date'
 
 module ParserAction
   class Ruby < ParserAction::Abstract
+    UNICODE_ESCAPER = proc { |s|
+      format('\u%04X', s.codepoints[0])
+    }
+
     def make_root(_input, _starts_at, _ends_at, elements)
       elements.first
     end
@@ -29,7 +33,8 @@ module ParserAction
     end
 
     def make_string(_input, _starts_at, _ends_at, elements)
-      %("#{elements.first.text}").undump
+      quoted_string = %("#{elements.first.text}")
+      quoted_string.encode('ASCII', fallback: UNICODE_ESCAPER).undump
     end
 
     def make_numeric_string(_input, _starts_at, _ends_at, elements)
