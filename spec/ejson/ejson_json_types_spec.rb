@@ -23,7 +23,7 @@ RSpec.describe EJSON do
       'slash'         => '/ & \\/',
       'alpha'         => 'abcdefghijklmnopqrstuvwyz',
       'ALPHA'         => 'ABCDEFGHIJKLMNOPQRSTUVWYZ',
-      "non-ascii"     => "пёсик мокрый た鼻",
+      'non-ascii'     => 'пёсик мокрый た鼻',
       'digit'         => '0123456789',
       'special'       => "`1~!@\#$%^&*()_+-={':[,]}|;.</>?",
       'hex'           => "\u0123\u4567\u89AB\uCDEF\uabcd\uef4A",
