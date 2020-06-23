@@ -1,5 +1,9 @@
 [
     "JSON Test Pattern pass1",
+    {
+      unqoted_key: 123,
+      $millionDollarKey: false
+    },
     {"object with 1 member":["array with 1 element"]},
     {},
     [],

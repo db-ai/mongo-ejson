@@ -4,7 +4,7 @@ grammar ExtendedJSON
 
   object                 <- (non_empty_object / empty_object)
 
-  pair                   <- @__ string @assignment value
+  pair                   <- @__ (string / identifier) @assignment value
                           %make_pair
 
   non_empty_object       <- @object_open
@@ -48,6 +48,22 @@ grammar ExtendedJSON
 
   string                 <- double_quote_string / single_quote_string
 
+  identifier             <- (identifier_start identifier_part+)
+                          %make_identifier
+
+  identifier_start       <- unicode_letter / "$" / "_" / "\\" unicode_escape
+  identifier_part        <- unicode_letter / unicode_digit / unicode_conn_punct
+
+  # Not fully compatible with a https://www.ecma-international.org/ecma-262/5.1/#sec-7.6
+  # but enough to cover most failing cases
+  unicode_combining      <- unicode_non_spacing / unicode_comb_spacing
+
+  unicode_escape         <- "u" hex_digit hex_digit hex_digit hex_digit
+
+  unicode_letter         <- [a-zA-Z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]
+  unicode_digit          <- [0-9]
+  unicode_conn_punct     <- [_\u203F\u2040\u2054\uFE33\uFE34\uFE4D-\uFE4F\uFF3F]
+
   double_quote_string    <- @double_quote
                               ("\\" . / [^"])*
                             @double_quote
@@ -59,7 +75,7 @@ grammar ExtendedJSON
                           %make_string
 
   hex_string             <- hex_single_quote / hex_double_quote
-  hex_value              <- [a-fA-F0-9]+
+  hex_value              <- hex_digit+
 
   hex_single_quote       <- @single_quote
                               hex_value
@@ -208,6 +224,8 @@ grammar ExtendedJSON
   slash                  <- '/'
   space                  <- [\s]
   new_line               <- [\n]
+
+  hex_digit              <- [a-fA-F0-9]
 
   comment                <- "//" [^\n]*
   __                     <- (space / new_line / comment)*

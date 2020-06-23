@@ -2,6 +2,10 @@ RSpec.describe EJSON do
   EXPECTED_WRAP = [
     'JSON Test Pattern pass1',
     {
+      'unqoted_key'       => 123,
+      '$millionDollarKey' => false,
+    },
+    {
       'object with 1 member' => ['array with 1 element'],
     },
     {}, [], -42, true, false, nil,

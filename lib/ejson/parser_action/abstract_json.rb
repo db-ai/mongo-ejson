@@ -16,6 +16,9 @@ module ParserAction
     def make_string(input, starts_at, _ends_at, elements)
     end
 
+    def make_identifier(input, starts_at, _ends_at, elements)
+    end
+
     def make_array(input, starts_at, _ends_at, elements)
     end
 

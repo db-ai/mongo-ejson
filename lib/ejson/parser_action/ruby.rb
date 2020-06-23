@@ -37,6 +37,10 @@ module ParserAction
       quoted_string.encode('ASCII', fallback: UNICODE_ESCAPER).undump
     end
 
+    def make_identifier(input, starts_at, ends_at, _elements)
+      input[starts_at...ends_at]
+    end
+
     def make_numeric_string(_input, _starts_at, _ends_at, elements)
       elements.first
     end
