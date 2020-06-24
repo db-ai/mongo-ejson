@@ -64,13 +64,14 @@ grammar ExtendedJSON
   unicode_digit          <- [0-9]
   unicode_conn_punct     <- [_\u203F\u2040\u2054\uFE33\uFE34\uFE4D-\uFE4F\uFF3F]
 
+  # https://www.ecma-international.org/ecma-262/5.1/#sec-7.8.4
   double_quote_string    <- @double_quote
-                              ("\\" . / [^"])*
+                              ("\\" [^\b\t\n\v\f\r] / [^"\b\t\n\v\f\r])*
                             @double_quote
                           %make_string
 
   single_quote_string    <- @single_quote
-                              ("\\" . / [^'])*
+                              ("\\" [^\b\t\n\v\f\r] / [^'\b\t\n\v\f\r])*
                             @single_quote
                           %make_string
 

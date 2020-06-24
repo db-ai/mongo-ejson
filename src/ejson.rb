@@ -1274,7 +1274,11 @@ module ExtendedJSON
           unless address4 == FAILURE
             elements2 << address4
             address5 = FAILURE
+            chunk1 = nil
             if @offset < @input_size
+              chunk1 = @input[@offset...@offset + 1]
+            end
+            if chunk1 =~ /\A[^\b\t\n\v\f\r]/
               address5 = TreeNode.new(@input[@offset...@offset + 1], @offset)
               @offset = @offset + 1
             else
@@ -1284,7 +1288,7 @@ module ExtendedJSON
                 @expected = []
               end
               if @offset == @failure
-                @expected << "<any char>"
+                @expected << "[^\\b\\t\\n\\v\\f\\r]"
               end
             end
             unless address5 == FAILURE
@@ -1305,11 +1309,11 @@ module ExtendedJSON
           end
           if address3 == FAILURE
             @offset = index3
-            chunk1 = nil
+            chunk2 = nil
             if @offset < @input_size
-              chunk1 = @input[@offset...@offset + 1]
+              chunk2 = @input[@offset...@offset + 1]
             end
-            if chunk1 =~ /\A[^"]/
+            if chunk2 =~ /\A[^"\b\t\n\v\f\r]/
               address3 = TreeNode.new(@input[@offset...@offset + 1], @offset)
               @offset = @offset + 1
             else
@@ -1319,7 +1323,7 @@ module ExtendedJSON
                 @expected = []
               end
               if @offset == @failure
-                @expected << "[^\"]"
+                @expected << "[^\"\\b\\t\\n\\v\\f\\r]"
               end
             end
             if address3 == FAILURE
@@ -1401,7 +1405,11 @@ module ExtendedJSON
           unless address4 == FAILURE
             elements2 << address4
             address5 = FAILURE
+            chunk1 = nil
             if @offset < @input_size
+              chunk1 = @input[@offset...@offset + 1]
+            end
+            if chunk1 =~ /\A[^\b\t\n\v\f\r]/
               address5 = TreeNode.new(@input[@offset...@offset + 1], @offset)
               @offset = @offset + 1
             else
@@ -1411,7 +1419,7 @@ module ExtendedJSON
                 @expected = []
               end
               if @offset == @failure
-                @expected << "<any char>"
+                @expected << "[^\\b\\t\\n\\v\\f\\r]"
               end
             end
             unless address5 == FAILURE
@@ -1432,11 +1440,11 @@ module ExtendedJSON
           end
           if address3 == FAILURE
             @offset = index3
-            chunk1 = nil
+            chunk2 = nil
             if @offset < @input_size
-              chunk1 = @input[@offset...@offset + 1]
+              chunk2 = @input[@offset...@offset + 1]
             end
-            if chunk1 =~ /\A[^']/
+            if chunk2 =~ /\A[^'\b\t\n\v\f\r]/
               address3 = TreeNode.new(@input[@offset...@offset + 1], @offset)
               @offset = @offset + 1
             else
@@ -1446,7 +1454,7 @@ module ExtendedJSON
                 @expected = []
               end
               if @offset == @failure
-                @expected << "[^']"
+                @expected << "[^'\\b\\t\\n\\v\\f\\r]"
               end
             end
             if address3 == FAILURE
