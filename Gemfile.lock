@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    mongo-ejson (0.2.6)
+    mongo-ejson (0.2.7)
 
 GEM
   remote: https://rubygems.org/
