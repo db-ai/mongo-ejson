@@ -27,7 +27,7 @@ Metrics/BlockLength:
     - describe
 
 Style/FrozenStringLiteralComment:
-  EnforcedStyle: when_needed
+  EnforcedStyle: never
 
 Layout/HashAlignment:
   EnforcedHashRocketStyle: table
