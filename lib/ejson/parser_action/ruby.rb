@@ -82,12 +82,16 @@ module ParserAction
     end
 
     # Makes ruby date from mongo Data type
-    def make_date(_input, _starts_at, _ends_at, elements)
+    def make_date(input, _starts_at, _ends_at, elements)
       value = elements.first
 
       case value
       when String
-        DateTime.parse(value)
+        begin
+          DateTime.parse(value)
+        rescue ArgumentError => error
+          raise ExtendedJSON::ParseError, "Invalid date '#{value}'', expected ISO date"
+        end
       when Numeric
         Time.at(value)
       else

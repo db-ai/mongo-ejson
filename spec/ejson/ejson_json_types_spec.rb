@@ -68,4 +68,11 @@ RSpec.describe EJSON do
 
     expect(result).to eq(EXPECTED_WRAP)
   end
+
+  it 'raises parser error on invalid date' do
+    content = %q| { date: ISODate("BooHaa")} |
+
+    expect { EJSON.parse_wrap(content) }
+    .to raise_error(ExtendedJSON::ParseError)
+  end
 end
