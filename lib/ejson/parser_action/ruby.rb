@@ -118,7 +118,9 @@ module ParserAction
 
     def _date_from_string(string)
       DateTime.parse(string)
-    rescue Date::Error, ArgumentError
+    rescue Date::Error
+      raise ExtendedJSON::ParseError, "Invalid date '#{string}'', expected ISO date"
+    rescue ArgumentError
       raise ExtendedJSON::ParseError, "Invalid date '#{string}'', expected ISO date"
     end
   end

@@ -17,7 +17,7 @@ RSpec.describe EJSON do
       'e'             => 1.23456789e-13,
       'E'             => 1.23456789e+34,
       # Disabling FloatOutOfRange Cop - we're expecting both Ruby and our parser to convert this value to Infinity
-      ''              => 23_456_789_012e+666, # rubocop:disable Lint/FloatOutOfRange
+      ''              => 23_456_789_012e+666, # rubocop:disable Lint/FloatOutOfRange Style/ExponentialNotation
       'zero'          => 0,
       'one'           => 1,
       'space'         => ' ',

@@ -1,6 +1,7 @@
 inherit_from: .rubocop_todo.yml
 
 AllCops:
+  NewCops: enable
   Exclude:
     - 'src/**/*'
     - 'vendor/bundle/**/*'
@@ -28,6 +29,9 @@ Metrics/BlockLength:
 
 Style/FrozenStringLiteralComment:
   EnforcedStyle: never
+
+Style/ExponentialNotation:
+  Enabled: false
 
 Layout/HashAlignment:
   EnforcedHashRocketStyle: table
