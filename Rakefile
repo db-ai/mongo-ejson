@@ -21,6 +21,6 @@ task test: [:compile_ruby, :spec] do
 end
 
 desc 'Prepare assets'
-task assets: [:test, :compile_js] do
+task assets: [:test, :compile_js, :compile_ruby] do
   mv 'src/ejson.js', 'vendor/assets/javascripts/ejson.js'
 end
