@@ -11,7 +11,7 @@ RSpec.describe EJSON do
     {}, [], -42, true, false, nil,
     {
       # Disabling AlignHash Cop die to an extra long key in the end that makes the hash unreadable.
-      # rubocop:disable Layout/AlignHash
+      # rubocop:disable Layout/HashAlignment
       'integer'       => 1_234_567_890,
       'real'          => -9876.54321,
       'e'             => 1.23456789e-13,
@@ -45,10 +45,11 @@ RSpec.describe EJSON do
       'jsontext'      => '{"object with 1 member":["array with 1 element"]}',
       'quotes'        => '&#34; " %22 0x22 034 &#x22;',
       "\\/\\\"\uCAFE\uBABE\uAB98\uFCDE\ubcda\uef4A\b\f\n\r\t`1~!@#$%^&*()_+-=[]{}|;:',./<>?" => 'A key can be any string', # rubocop:disable Metrics/LineLength
-      # rubocop:enable Layout/AlignHash
+
     },
     0.5, 98.6, 99.44, 1066,
     'rosebud'
+    # rubocop:enable Layout/HashAlignment
   ].freeze
 
   it 'parses wrapped JSON types' do
@@ -70,9 +71,9 @@ RSpec.describe EJSON do
   end
 
   it 'raises parser error on invalid date' do
-    content = %q| { date: ISODate("BooHaa")} |
+    content = ' { date: ISODate("BooHaa")} '
 
     expect { EJSON.parse_wrap(content) }
-    .to raise_error(ExtendedJSON::ParseError)
+      .to raise_error(ExtendedJSON::ParseError)
   end
 end

@@ -4,7 +4,7 @@ require 'date'
 module ParserAction
   class Ruby < ParserAction::Abstract
     UNICODE_ESCAPER = proc { |s|
-      format('\u%04X', s.codepoints[0])
+      format('\u%04<char>X', char: s.codepoints[0])
     }
 
     def make_root(_input, _starts_at, _ends_at, elements)
@@ -82,16 +82,12 @@ module ParserAction
     end
 
     # Makes ruby date from mongo Data type
-    def make_date(input, _starts_at, _ends_at, elements)
+    def make_date(_input, _starts_at, _ends_at, elements)
       value = elements.first
 
       case value
       when String
-        begin
-          DateTime.parse(value)
-        rescue ArgumentError => error
-          raise ExtendedJSON::ParseError, "Invalid date '#{value}'', expected ISO date"
-        end
+        _date_from_string(value)
       when Numeric
         Time.at(value)
       else
@@ -118,6 +114,12 @@ module ParserAction
       else
         string.to_i
       end
+    end
+
+    def _date_from_string(string)
+      DateTime.parse(string)
+    rescue Date::Error, ArgumentError
+      raise ExtendedJSON::ParseError, "Invalid date '#{string}'', expected ISO date"
     end
   end
 end
