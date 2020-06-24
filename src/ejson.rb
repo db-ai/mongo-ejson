@@ -903,7 +903,7 @@ module ExtendedJSON
       unless address1 == FAILURE
         elements0 << address1
         address2 = FAILURE
-        remaining0, index2, elements1, address3 = 1, @offset, [], true
+        remaining0, index2, elements1, address3 = 0, @offset, [], true
         until address3 == FAILURE
           address3 = _read_identifier_part
           unless address3 == FAILURE

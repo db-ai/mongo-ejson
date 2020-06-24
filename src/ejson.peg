@@ -48,7 +48,7 @@ grammar ExtendedJSON
 
   string                 <- double_quote_string / single_quote_string
 
-  identifier             <- (identifier_start identifier_part+)
+  identifier             <- (identifier_start identifier_part*)
                           %make_identifier
 
   identifier_start       <- unicode_letter / "$" / "_" / "\\" unicode_escape

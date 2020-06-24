@@ -1,5 +1,0 @@
-{
-  unquoted_key: "keys must be quoted",
-  $superKey: 123,
-  клöч: "от всех дверей"
-}
