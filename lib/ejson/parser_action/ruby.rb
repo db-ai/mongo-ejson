@@ -116,7 +116,12 @@ module ParserAction
       end
     end
 
-    DateError = (defined? Date::Error) ? Date::Error : ArgumentError
+    DateError = if defined? Date::Error
+                  Date::Error
+                else
+                  ArgumentError
+                end
+
     def _date_from_string(string)
       DateTime.parse(string)
     rescue DateError
